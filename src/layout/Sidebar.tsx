@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "./button";
+import Button from "../components/ui/button";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 type Menu = {

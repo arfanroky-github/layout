@@ -1,20 +1,31 @@
-import PageHeader from "./PageHeader";
-import Sidebar from "./Sidebar";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./layout/Layout";
+import ChatLayout from "./chats";
+import Home from "./Home";
+
+type Component = {
+  path: string;
+  element: JSX.Element;
+};
 
 const App = () => {
-  return (
-    <div className="h-screen grid gap-4 grid-cols-[auto,1fr] flex-grow-1 overflow-auto bg-blue-200 p-4">
-      <Sidebar />
-      <div className="overflow-x-hidden ">
-        <div className=" sticky top-0 bg-white z-10 pb-4">
-          <PageHeader />
-        </div>
+  const components: Component[] = [{ path: "chats", element: <ChatLayout /> }];
 
-        <div className="h-screen bg-red-400" />
-        <div className="h-screen bg-blue-400" />
-        <div className="h-screen bg-purple-400" />
-      </div>
-    </div>
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          {components.map((component) => (
+            <Route
+              key={component.path}
+              path={component.path}
+              element={component.element}
+            />
+          ))}
+        </Route>
+      </Routes>
+    </>
   );
 };
 export default App;
